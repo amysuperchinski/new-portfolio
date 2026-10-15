@@ -1,0 +1,138 @@
+/* Case study pages */
+.cs { --tint: var(--color-surface-alt); }
+
+/* Hero */
+.cs-hero { background: var(--tint); padding-block: var(--space-7) 0; overflow: hidden; }
+.cs-hero-inner { width: min(100% - 2 * var(--gutter), 70rem); margin-inline: auto; }
+.cs-back { display: block; width: fit-content; font-size: var(--text-lg); color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; margin-bottom: var(--space-6); }
+.cs-back:hover { text-decoration-thickness: 2px; }
+.cs-pill {
+  display: inline-block; padding: 0.3rem 0.9rem; border-radius: var(--radius-pill);
+  background: transparent; color: var(--color-ink); border: 1px solid var(--color-ink); font-size: var(--text-sm); line-height: 1.4;
+}
+.cs-title {
+  font-family: var(--font-serif); font-weight: 400; color: var(--color-ink);
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem); line-height: 1.05; margin-top: var(--space-3);
+}
+.cs-summary { font-size: clamp(1.125rem, 1rem + 0.3vw, 1.25rem); /* 20px on desktop */ line-height: 1.45; color: var(--color-ink); margin-top: var(--space-5); max-width: 34em; }
+.cs-hero-image { margin-top: var(--space-5); }
+.cs-hero-image img { width: min(100%, 58rem); height: auto; margin-inline: auto; }
+
+/* Facts row */
+.cs-facts {
+  width: min(100% - 2 * var(--gutter), 70rem); margin-inline: auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: var(--space-5);
+  padding-block: var(--space-7); border-bottom: 1px solid #d9d9d9;
+}
+.cs-facts dt { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ink-soft); font-weight: 500; }
+.cs-facts dd { margin-top: var(--space-1); font-weight: 500; }
+
+/* Body */
+.cs-body { width: min(100% - 2 * var(--gutter), 46rem); margin-inline: auto; padding-bottom: var(--space-8); }
+.cs-body .prose { margin-top: var(--space-8); }
+
+/* Elements that break out of the narrow text column */
+.cs-band, .cs-split, .cs-metrics, .cs-twocol { margin-block: var(--space-9); }
+.cs-band {
+  width: 100vw; margin-inline: calc(50% - 50vw);
+  background: var(--media-bg, var(--tint)); padding: clamp(1.5rem, 1rem + 3vw, 4rem) var(--gutter);
+}
+.cs-band img { width: min(100%, 72rem); margin-inline: auto; border-radius: 0; }
+.cs-band--dark { background: #111; }
+.cs-band figcaption { text-align: center; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-ink-soft); }
+
+.cs-split {
+  --wide: min(100vw - 2 * var(--gutter), 70rem);
+  width: var(--wide); margin-inline: calc((100% - var(--wide)) / 2);
+  display: grid; gap: var(--space-7); align-items: center;
+}
+
+.cs-split-media { background: var(--media-bg, var(--tint)); border-radius: var(--radius-lg); overflow: hidden; }
+.cs-split-media img { width: 100%; height: auto; border-radius: 0; }
+.cs-split-copy > * + * { margin-top: var(--space-4); }
+.cs-split-copy h2 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-2xl); line-height: 1.1; border: 0; padding: 0; margin-top: var(--space-2); }
+@media (min-width: 900px) {
+  .cs-split { grid-template-columns: 1fr 1fr; gap: var(--space-9); }
+  .cs-split--reverse .cs-split-media { order: 2; }
+}
+
+.cs-metrics {
+  --wide: min(100vw - 2 * var(--gutter), 70rem);
+  width: var(--wide); margin-inline: calc((100% - var(--wide)) / 2);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 18.5rem)); justify-content: center;
+  gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+}
+.cs-metrics > div {
+  border: 2px solid var(--tint); border-radius: 24px;
+  padding: 1.5rem 1.375rem 1.75rem;
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.cs-metrics dd { order: -1; font-family: var(--font-serif); font-size: clamp(2.5rem, 2.1rem + 1.2vw, 3rem); line-height: 1; color: var(--color-ink); }
+.cs-metrics dt { font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem); line-height: 1.5; color: var(--color-ink); }
+
+/* NDA request + next project */
+.cs-request { margin-top: var(--space-8); padding: var(--space-7); border-radius: var(--radius-lg); background: var(--color-teal-deep); color: var(--color-on-dark); }
+.cs-request h2 { color: inherit; font-size: var(--text-xl); }
+.cs-request p { margin-top: var(--space-3); margin-bottom: var(--space-5); opacity: 0.92; }
+.cs-request .btn-primary { background: var(--color-on-dark); color: var(--color-ink); }
+.cs-request .btn-primary:hover { background: var(--color-rose-soft); }
+.cs-request :focus-visible { outline-color: var(--color-on-dark); }
+.cs-next { width: min(100% - 2 * var(--gutter), 70rem); margin-inline: auto; padding-block: var(--space-8) var(--space-9); border-top: 1px solid #d9d9d9; }
+.cs-next-link { display: inline-block; margin-top: var(--space-2); font-family: var(--font-serif); font-size: var(--text-2xl); color: var(--color-ink); text-decoration: none; }
+.cs-next-link:hover { text-decoration: underline; }
+
+/* Browser-framed scrollable screenshot */
+.cs-screen {
+  --wide: min(100vw - 2 * var(--gutter), 62rem);
+  width: var(--wide); margin-inline: calc((100% - var(--wide)) / 2); margin-block: var(--space-8);
+  background: var(--tint); border-radius: var(--radius-lg); padding: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+}
+.cs-screen-bar { display: flex; gap: 6px; padding: 10px 12px; background: #fff; border-radius: 10px 10px 0 0; border-bottom: 1px solid #e6e6e6; }
+.cs-screen-bar span { width: 10px; height: 10px; border-radius: 50%; background: #d9d9d9; }
+.cs-screen-view { height: var(--screen-h); overflow-y: auto; background: #fff; border-radius: 0 0 10px 10px; box-shadow: var(--shadow-card); }
+.cs-screen-view img { width: 100%; height: auto; border-radius: 0; }
+.cs .cs-screen figcaption, .cs .cs-gallery figcaption { text-align: center; margin-top: 23px; /* gap between the image and its caption */ font-size: var(--text-sm); color: var(--color-ink-soft); }
+
+/* Image row */
+.cs-gallery {
+  width: 100vw; margin-inline: calc(50% - 50vw); margin-block: var(--space-8);
+  background: var(--media-bg, var(--tint)); padding: clamp(1.5rem, 1rem + 3vw, 4rem) var(--gutter);
+}
+.cs-gallery-grid { width: min(100%, 64rem); margin-inline: auto; display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: clamp(0.75rem, 0.5rem + 1vw, 2rem); }
+.cs-gallery-grid img { width: 100%; height: auto; border-radius: 0; }
+@media (max-width: 699px) { .cs-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* Two screenshots side by side */
+.cs-screen-pair {
+  --wide: min(100vw - 2 * var(--gutter), 70rem);
+  width: var(--wide); margin-inline: calc((100% - var(--wide)) / 2); margin-block: var(--space-8);
+  display: grid; gap: var(--space-5);
+}
+.cs-screen-pair .cs-screen { width: 100%; margin: 0; }
+@media (min-width: 900px) { .cs-screen-pair { grid-template-columns: 1fr 1fr; } }
+
+/* Band with less space around it */
+.cs-band.cs-band--compact { margin-block: 0; padding-block: 0; } /* no space above or below the image */
+.prose * + .cs-band--compact { margin-top: 0; }
+.prose .cs-band--compact + * { margin-top: 0; }
+
+/* Note at the top of private case studies */
+.cs-confidential { margin-top: var(--space-7); padding: var(--space-4) var(--space-5); border: 1px solid var(--color-ink); border-radius: var(--radius-md); font-size: var(--text-sm); }
+
+/* Password form for private case studies (sits inside the dark "request access" box) */
+.private-access { margin-top: var(--space-6); padding-top: var(--space-5); border-top: 1px solid rgb(255 255 255 / 0.25); }
+.private-access label { display: block; font-size: var(--text-sm); margin-bottom: var(--space-2); }
+.private-access-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.private-access input {
+  flex: 1 1 14rem; min-height: 44px; padding: 0 var(--space-4);
+  border-radius: var(--radius-pill); border: 1px solid rgb(255 255 255 / 0.6); background: transparent; color: inherit;
+}
+.private-access input:focus-visible { outline: 3px solid var(--color-on-dark); outline-offset: 2px; }
+.cs-request .private-access-msg { margin: var(--space-2) 0 0; font-size: var(--text-sm); }
+.cs-request .private-access-msg:empty { display: none; }
+
+/* Buttons inside the "request access" box */
+.cs-request-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.cs-request .btn-outline-light { background: transparent; color: var(--color-on-dark); border-color: var(--color-on-dark); cursor: pointer; }
+.cs-request .btn-outline-light:hover, .cs-request .btn-outline-light[aria-expanded="true"] { background: rgb(255 255 255 / 0.12); }
+.private-access[hidden] { display: none; }

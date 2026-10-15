@@ -1,0 +1,15 @@
+---
+// Row of key results. items: [{ value: '80%', label: 'approval in beta' }]
+import '../../styles/case-study.css';
+interface Props { items: { value: string; label: string }[] }
+const { items } = Astro.props;
+---
+
+<dl class="cs-metrics">
+  {items.map((m) => (
+    <div>
+      <dt>{m.label}</dt>
+      <dd>{m.value}</dd>
+    </div>
+  ))}
+</dl>

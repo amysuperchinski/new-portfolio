@@ -1,0 +1,43 @@
+/* Scroll indicator — measurements match the original site:
+   13px vertical label, 60px × 1px line at 30% black, 8px dot. */
+.scroll-indicator {
+  --line-height: 60px;
+  --dot: 8px;
+  position: fixed;
+  right: 38px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: none;               /* only shown where there's room beside the content */
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  color: var(--color-ink);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+.scroll-indicator-text { writing-mode: vertical-lr; transform: rotate(180deg); line-height: 1; } /* reads bottom-to-top, like the original */
+.scroll-indicator-line {
+  position: relative;
+  width: 1px;
+  height: var(--line-height);
+  background: rgb(0 0 0 / 0.3);
+}
+.scroll-indicator-dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--dot);
+  height: var(--dot);
+  margin-left: calc(var(--dot) / -2);
+  border-radius: 50%;
+  background: var(--color-ink);
+  transform: translateY(calc(var(--scroll-progress, 0) * (var(--line-height) - var(--dot))));
+}
+.scroll-indicator:hover .scroll-indicator-text { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (min-width: 1360px) {
+  .scroll-indicator { display: flex; }
+}

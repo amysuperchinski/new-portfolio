@@ -1,0 +1,57 @@
+---
+// Password form that opens a project's private full case study.
+// The password is turned into the page address in the browser; nothing secret is stored here.
+interface Props { project: string }
+const { project } = Astro.props;
+const id = `pw-${project}`;
+---
+
+<form class="private-access" id={`${id}-form`} data-project={project} novalidate hidden>
+  <label for={id}>Enter the password to view the full case study</label>
+  <div class="private-access-row">
+    <input id={id} name="password" type="password" autocomplete="off" required aria-describedby={`${id}-msg`} />
+    <button type="submit" class="btn btn-primary">Open</button>
+  </div>
+  <p id={`${id}-msg`} class="private-access-msg" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  async function toCode(project: string, password: string) {
+    const data = new TextEncoder().encode(`${project}:${password}`);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+  }
+
+  // "I have a password" button: shows the form and moves focus to the field
+  document.querySelectorAll<HTMLButtonElement>('[data-private-toggle]').forEach((toggle) => {
+    const form = document.getElementById(toggle.getAttribute('aria-controls')!) as HTMLFormElement | null;
+    toggle.addEventListener('click', () => {
+      if (!form) return;
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      form.hidden = open;
+      if (!open) form.querySelector('input')?.focus();
+    });
+  });
+
+  document.querySelectorAll<HTMLFormElement>('.private-access').forEach((form) => {
+    const input = form.querySelector('input')!;
+    const msg = form.querySelector('.private-access-msg')!;
+    const button = form.querySelector('button')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = input.value.trim();
+      if (!password) { msg.textContent = 'Please enter the password.'; input.focus(); return; }
+      button.disabled = true;
+      msg.textContent = 'Checking…';
+      const url = `/private/${form.dataset.project}-${await toCode(form.dataset.project!, password)}/`;
+      try {
+        const res = await fetch(url, { method: 'HEAD' });
+        if (res.ok) { window.location.href = url; return; }
+      } catch {}
+      msg.textContent = 'That password didn’t work. Please check it and try again.';
+      button.disabled = false;
+      input.select();
+    });
+  });
+</script>

@@ -1,0 +1,18 @@
+---
+// Image + text side by side. Use for each workstream of a case study.
+import '../../styles/case-study.css';
+interface Props { src: string; alt: string; title: string; eyebrow?: string; reverse?: boolean; bg?: string; width?: number; height?: number }
+const { src, alt, title, eyebrow, reverse = false, bg, width = 780, height = 950 } = Astro.props;
+const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+
+<section class:list={['cs-split', { 'cs-split--reverse': reverse }]} aria-labelledby={id}>
+  <div class="cs-split-media" style={bg ? `--media-bg: ${bg}` : undefined}>
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  </div>
+  <div class="cs-split-copy">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 id={id}>{title}</h2>
+    <slot />
+  </div>
+</section>

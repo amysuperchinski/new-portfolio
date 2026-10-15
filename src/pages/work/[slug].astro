@@ -1,0 +1,87 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+import { privateProjects } from '../../data/private';
+import PrivateAccess from '../../components/PrivateAccess.astro';
+import '../../styles/case-study.css';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('work', ({ data }) => !data.draft)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return projects.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+
+const facts = [
+  { label: 'Company', value: d.company },
+  { label: 'My Role', value: d.role },
+  { label: 'Timeline', value: d.timeline },
+  { label: 'Platforms', value: d.platforms.join(', ') },
+  { label: 'Team', value: d.team },
+].filter((m) => m.value);
+
+const requestSubject = encodeURIComponent(`Access to the ${d.title} case study`);
+---
+
+<BaseLayout title={d.title} description={d.summary} image={d.cover}>
+  <article class="cs" style={d.tint ? `--tint: ${d.tint}` : undefined}>
+    <header class="cs-hero">
+      <div class="cs-hero-inner">
+        <a href="/#work" class="cs-back">← All Work</a>
+        <p class="cs-pill">{d.category}</p>
+        <h1 class="cs-title">{d.title}</h1>
+        <p class="cs-summary">{d.summary}</p>
+      </div>
+      <div class="cs-hero-image">
+        <img src={d.heroImage ?? d.cover} alt={d.heroImageAlt ?? d.coverAlt} width="1440" height="960" fetchpriority="high" />
+      </div>
+    </header>
+
+    <dl class="cs-facts">
+      {facts.map((m) => (
+        <div>
+          <dt>{m.label}</dt>
+          <dd>{m.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="cs-body">
+      <div class="prose">
+        <Content />
+      </div>
+
+      {d.protected && (
+        <aside class="cs-request" aria-labelledby="request-title">
+          <h2 id="request-title">Want to See the Full Case Study?</h2>
+          <p>
+            This project is under a confidentiality agreement, so the detailed process, screens and
+            results are shared on request. I’m happy to walk you through it.
+          </p>
+          <div class="cs-request-actions">
+            <a class="btn btn-primary" href={`mailto:${site.email}?subject=${requestSubject}`}>Request access</a>
+            {privateProjects.includes(entry.id) && (
+              <button type="button" class="btn btn-outline-light" data-private-toggle={entry.id} aria-expanded="false" aria-controls={`pw-${entry.id}-form`}>
+                I have a password
+              </button>
+            )}
+          </div>
+          {privateProjects.includes(entry.id) && <PrivateAccess project={entry.id} />}
+        </aside>
+      )}
+    </div>
+
+    <nav class="cs-next" aria-label="Next case study">
+      <p class="eyebrow">Next Project</p>
+      <a href={`/work/${next.id}/`} class="cs-next-link">{next.data.title} →</a>
+    </nav>
+  </article>
+</BaseLayout>

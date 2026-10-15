@@ -1,0 +1,13 @@
+---
+// Full-width image band on the project's tint color (like the original case study pages).
+import '../../styles/case-study.css';
+// `bg` overrides the band color, e.g. to match an image's own background.
+// `compact` reduces the space above and below the band.
+interface Props { src: string; alt: string; caption?: string; dark?: boolean; compact?: boolean; bg?: string; width?: number; height?: number }
+const { src, alt, caption, dark = false, compact = false, bg, width = 1440, height = 960 } = Astro.props;
+---
+
+<figure class:list={['cs-band', { 'cs-band--dark': dark, 'cs-band--compact': compact }]} style={bg ? `--media-bg: ${bg}` : undefined}>
+  <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

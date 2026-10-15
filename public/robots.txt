@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://amysuperchinski.com/sitemap-index.xml

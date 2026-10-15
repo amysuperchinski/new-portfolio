@@ -1,0 +1,124 @@
+---
+title: Futura Genetics
+summary: Restructuring a genetic-testing website so dense scientific content became a clear path from first visit to customer.
+category: UX/UI Design · Information Architecture
+order: 4
+company: Futura Genetics
+role: Product Designer (UX/UI)
+timeline: Jan 2019 — Jan 2020
+platforms: [Website, Desktop & mobile]
+team: CEO, project manager, marketing, tech lead, developers
+cover: /images/work/futura-genetics.png
+coverAlt: Futura Genetics website redesign shown on screens.
+heroImage: /images/work/futura/hero.gif
+heroImageAlt: Laptop showing the redesigned Futura Genetics page listing the conditions the DNA test covers.
+tint: "#d6ecec"
+accent: "#16707a"
+linkColor: "#78e3d9"
+protected: false
+---
+import Placeholder from '../../components/Placeholder.astro';
+import Band from '../../components/case/Band.astro';
+import Split from '../../components/case/Split.astro';
+import Metrics from '../../components/case/Metrics.astro';
+import Screen from '../../components/case/Screen.astro';
+import Gallery from '../../components/case/Gallery.astro';
+
+<Metrics items={[
+  { value: '40%', label: 'increase in the perceived reliability of the services' },
+  { value: '6', label: 'key page types redesigned or created from scratch' },
+]} />
+
+## Overview
+
+Futura Genetics is a digital health platform powered by genomic data. Through life insurers, it offers clients a personalized DNA report that motivates them to act on their health.
+
+Over one year, I owned the end-to-end redesign of the company’s website as its Product Designer — from information architecture to responsive UI — working weekly with the CEO and closely with the project manager, marketing, the tech lead and developers.
+
+## The Challenge
+
+The company had a single landing page that didn’t explain the service. Visitors couldn’t easily find out what the test covered, what they would receive, or why they should trust a young company with their DNA.
+
+The content itself was hard: genetics is dense and scientific, and the audience wasn’t. In a product like this, **trust and clarity are what turn a visitor into a customer**. The new site had to take a non-expert from “what is this?” to “I understand what I’m getting” — while also giving the company a credible presence for partners and investors.
+
+## How I Worked
+
+There was no budget for formal user research, so I built the direction from the inputs available and validated it along the way:
+
+- **Weekly sessions with the CEO** to align on business goals, priorities and how the product should be positioned.
+- **Collaboration with marketing and the project manager** on content, messaging and what customers were asking.
+- **Competitor research** on other genetic-testing companies, to understand how they explained results and built trust.
+- **Feasibility checks with the tech lead and developers** before designs were finalized.
+- **Testing design alternatives with the internal team and customers** to compare options before rolling them out.
+
+## Where It Started
+
+The old site tried to say everything at once. Long pages stacked stock photos, partner logos, lab credentials, events and repeated calls to action, so the key messages — what the test covers and what you receive — got lost. Thin, light text over photos and pale teal on white also made much of the content hard to read, which undermined the very trust the company needed.
+
+<div class="cs-screen-pair">
+  <Screen src="/images/work/futura/before-homepage.webp" alt="Before: the old homepage, a long page mixing report previews, testimonials, partner logos, lab credentials, events and technology sections." imgHeight={3598} height="30rem" caption="Before: Homepage" />
+  <Screen src="/images/work/futura/before-how-it-works.webp" alt="Before: the old How It Works page, with light teal headings and stock photos." imgHeight={3000} height="30rem" caption="Before: How It Works" />
+</div>
+
+## Restructuring the Information Architecture
+
+The biggest change wasn’t visual. I rebuilt the site structure around the questions a visitor actually has, in the order they have them: *What is this? What does it test? What will I receive? Can I trust it?* Each question became a clear section of the site, instead of everything competing on one landing page.
+
+<Band compact src="/images/work/futura/sitemap.webp" alt="The new sitemap, grouping pages into the homepage, conditions tested, understanding the report, FAQ, blog and testimonials." width={1440} height={698} bg="#ffffff" />
+
+
+## A Homepage That Explains
+
+The new homepage introduces the product, how it works and what makes it trustworthy, then routes visitors to the section that answers their next question.
+
+<Screen src="/images/work/futura/homepage.webp" alt="Full redesigned Futura Genetics homepage: hero, products, customer story, lab, privacy and security, partners and FAQ preview." width={2000} imgHeight={7455} caption="Scroll inside the frame to see the full page." />
+
+## Every Condition, Explained
+
+A dedicated page listed every condition the test covered, so visitors could see exactly what the report would tell them before buying. Instead of one long list, I grouped the conditions into categories — like cancer, heart and vascular, autoimmune, lifestyle, eye, skin, and male and female health — and mapped each category onto two illustrated figures, making a dense medical list approachable at a glance.
+
+<Screen src="/images/work/futura/conditions.webp" alt="Conditions page: two illustrated figures with lettered markers, and the conditions tested grouped into color-coded categories." width={2000} imgHeight={3354} />
+
+## Understanding the Report
+
+Before buying, people want to know what they will actually get. I designed a dedicated section that walks through the report — how to read the graphics, the detailed results by gene, and what each condition means — on desktop and mobile.
+
+<Band src="/images/work/futura/report.webp" alt="Desktop page explaining how to read the report graphics, next to a sample report page with risk percentages for each condition." width={2000} height={1940} bg="#f8f8f8" />
+
+<Gallery
+  images={[
+    { src: '/images/work/futura/report-mobile-1.png', alt: 'Mobile: how to read the report graphics.' },
+    { src: '/images/work/futura/report-mobile-2.png', alt: 'Mobile: detailed results by gene.' },
+    { src: '/images/work/futura/report-mobile-3.png', alt: 'Mobile: learning about each condition.' },
+    { src: '/images/work/futura/report-mobile-4.png', alt: 'Mobile: another section of the report guide.' },
+  ]}
+  caption="The report section, designed for mobile."
+/>
+
+## A More Complete FAQ
+
+I reorganized the FAQ around the moments in a customer’s journey — the test itself, ordering and delivery, how to use the kit, payment and privacy — and added search. Each question got its own page, with related questions alongside, so answers were easier to find and one answer led naturally to the next.
+
+<Screen src="/images/work/futura/faq-question.webp" alt="FAQ question page with a search field, categories in the sidebar, the answer, and a list of related questions." width={2000} imgHeight={4488} />
+
+## Building Trust
+
+A blog and customer stories gave the company a voice and social proof — both essential when asking people to share their DNA.
+
+<div class="cs-screen-pair">
+  <Screen src="/images/work/futura/blog.webp" alt="Blog listing page." width={2000} imgHeight={4432} height="30rem" />
+  <Screen src="/images/work/futura/testimonials.webp" alt="Customer story page with a portrait, quote and call to action." width={2000} imgHeight={3889} height="30rem" />
+</div>
+
+## Results
+
+- **40% increase in the perceived reliability** of the company’s services, measured by testing the new design with the internal team and customers.
+- A clear structure that took visitors from a single landing page to a full site answering their questions in order.
+- A responsive design that carried the same clarity to mobile.
+
+## Looking Back
+
+This was an early project in my career, and it taught me how much structure matters before visuals: most of the clarity came from reorganizing content, not from styling it.
+
+If I were doing it today, I would bring users in much earlier — interviewing customers about their questions and worries, validating the new structure with card sorting and tree testing, and defining success metrics like conversion from the start, not only at the end.
+

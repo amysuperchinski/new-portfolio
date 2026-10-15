@@ -1,0 +1,99 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  category: string;
+  cover: string;
+  coverAlt: string;
+  accent: string;
+  linkColor?: string;
+  isProtected?: boolean;
+  index: number;
+}
+const { href, title, summary, category, cover, coverAlt, accent, linkColor = '#ffffff', isProtected = false, index } = Astro.props;
+
+// Optional phone version of the cover: same file name ending in "-mobile" (e.g. fiserv-cover-mobile.png).
+import { existsSync } from 'node:fs';
+const mobileCover = cover.replace(/(\.[a-z]+)$/i, '-mobile$1');
+const hasMobileCover = existsSync(`public${mobileCover}`);
+---
+
+<article class="card" style={`--accent: ${accent}; --link-color: ${linkColor}`}>
+  <div class="card-media">
+    <picture>
+    {hasMobileCover && <source media="(max-width: 699px)" srcset={mobileCover} />}
+    <img
+      src={cover}
+      alt={coverAlt}
+      width="1200"
+      height="800"
+      loading={index < 2 ? 'eager' : 'lazy'}
+      decoding="async"
+      onerror="this.style.display='none'"
+    />
+    </picture>
+  </div>
+  <div class="card-body">
+    <p class="card-meta">
+      <span>{category}</span>
+      {isProtected && <span class="card-lock">NDA · teaser</span>}
+    </p>
+    <h3 class="card-title">
+      <a href={href} class="card-link">{title}</a>
+    </h3>
+    <p class="card-summary">{summary}</p>
+    <span class="card-cta" aria-hidden="true">View case study</span>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: grid;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--accent);
+    color: var(--color-on-dark);
+    min-height: clamp(22rem, 40vw, 34rem);
+    isolation: isolate;
+    box-shadow: var(--shadow-card);
+  }
+  .card-media { grid-area: 1 / 1; }
+  .card-media img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 700ms var(--ease-out);
+  }
+  .card:hover .card-media img { transform: scale(1.03); }
+
+  .card-body {
+    grid-area: 1 / 1;
+    /* Covers the whole card and sits above the image, so text stays visible while the image zooms on hover */
+    position: relative; z-index: 1;
+    align-self: stretch;
+    display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
+    padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.55) 35%, rgb(0 0 0 / 0) 65%);
+    padding-top: var(--space-9);
+  }
+
+  /* Small screens: image on top, text below on the project color, so text never sits on a busy image */
+  @media (max-width: 699px) {
+    .card { min-height: 0; grid-template-rows: auto auto; }
+    .card-media { grid-area: 1 / 1; aspect-ratio: 4 / 3; overflow: hidden; }
+    .card-body { grid-area: 2 / 1; background: none; padding-top: var(--space-5); position: static; }
+  }
+  .card-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .card-lock { padding: 0 var(--space-2); border: 1px solid rgb(255 255 255 / 0.6); border-radius: var(--radius-pill); }
+  .card-title { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-2xl); color: inherit; line-height: var(--leading-tight); margin-top: var(--space-2); }
+  .card-link { color: inherit; text-decoration: none; }
+  /* Make the whole card clickable while keeping a single, meaningful link */
+  .card-link::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+  .card-link:focus-visible { outline: none; }
+  .card:has(.card-link:focus-visible) { outline: 3px solid var(--color-teal-strong); outline-offset: 4px; }
+  .card-summary { margin-top: var(--space-2); max-width: 38ch; font-size: var(--text-md); opacity: 0.95; }
+  .card-cta {
+    display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-5);
+    font-size: var(--text-sm); font-weight: 500; border-bottom: 1.5px solid var(--link-color, currentColor); padding-bottom: 2px;
+  }
+</style>

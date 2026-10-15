@@ -1,0 +1,25 @@
+---
+// A clearly visible "to fill in" note for case study content.
+// Search the project for <Placeholder to find everything still missing.
+interface Props { label?: string }
+const { label = 'To fill in' } = Astro.props;
+// Only shown in the local preview — never on the live site.
+const show = import.meta.env.DEV;
+---
+
+{show && (
+  <aside class="placeholder" role="note">
+    <strong>{label}:</strong> <slot />
+  </aside>
+)}
+
+<style>
+  .placeholder {
+    border: 2px dashed var(--color-rose);
+    background: #fdf6f7;
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--color-rose-strong);
+  }
+</style>

@@ -1,0 +1,141 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
+import { site, hero, about, services, experience, formatMonth } from '../data/site';
+import '../styles/home.css';
+
+const projects = (await getCollection('work', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-title" class="hero-title">{hero.titleLines[0]}<br />{hero.titleLines[1]}</h1>
+        <p class="hero-subtitle">{hero.subtitle}</p>
+        <a href="#work" class="hero-link">— See my work</a>
+      </div>
+      <div class="hero-avatar">
+        <img src="/images/hero-avatar-v3.webp" alt="Illustrated avatar of Amy in a black leather jacket, holding a stylus" width="721" height="1224" fetchpriority="high" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="section work" aria-labelledby="work-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Selected Work</p>
+        <h2 id="work-title" class="section-title">Case Studies</h2>
+      </div>
+      <ul class="work-grid" role="list">
+        {projects.map((p, i) => (
+          <li>
+            <ProjectCard
+              href={`/work/${p.id}/`}
+              title={p.data.title}
+              summary={p.data.summary}
+              category={p.data.category}
+              cover={p.data.cover}
+              coverAlt={p.data.coverAlt}
+              accent={p.data.accent}
+              linkColor={p.data.linkColor}
+              isProtected={p.data.protected}
+              index={i}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section about" aria-labelledby="about-title">
+    <div class="container about-grid">
+      <div class="about-portrait">
+        <img src="/images/about-avatar-jacket-cat-v3.webp" alt="Illustrated avatar of Amy in a black leather jacket, holding her fluffy black cat" width="913" height="1197" loading="lazy" />
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow">About</p>
+        <h2 id="about-title" class="about-intro">{about.intro}</h2>
+        {about.body.map((para) => <p class="about-body">{para}</p>)}
+        <ul class="skills" role="list" aria-label="Core skills">
+          {about.skills.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="container services">
+      <h3 class="services-title">What I Can Contribute To</h3>
+      <ul class="services-grid" role="list">
+        {services.map((s) => (
+          <li class="service">
+            <ServiceIcon name={s.icon} />
+            <h4>{s.title}</h4>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section experience" aria-labelledby="experience-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-dark">Career</p>
+        <h2 id="experience-title" class="section-title">Work Experience</h2>
+      </div>
+      <ol class="timeline" role="list">
+        {experience.map((job) => (
+          <li class="job">
+            <details class="job-details">
+              <summary class="job-summary">
+                <span class="job-role">
+                  <strong>{job.role}</strong> <span class="job-company">at {job.company}</span>
+                </span>
+                <span class="job-dates">
+                  <time datetime={job.start}>{formatMonth(job.start)}</time>
+                  <span aria-hidden="true"> — </span><span class="visually-hidden"> to </span>
+                  {job.end ? <time datetime={job.end}>{formatMonth(job.end)}</time> : <span>Present</span>}
+                </span>
+                <span class="job-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="job-body">
+                <p class="job-location">{job.location}</p>
+                <p class="job-text">{job.summary}</p>
+                {job.highlights.length > 0 && (
+                  <ul class="job-highlights">
+                    {job.highlights.map((h) => <li>{h}</li>)}
+                  </ul>
+                )}
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+      <p class="experience-earlier">Earlier: graphic and digital design roles since 2013, including interfaces for e-learning platforms. Details in my CV.</p>
+      <a href={site.cv} class="link-arrow experience-cv">
+        <svg class="experience-cv-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" />
+        </svg>
+        See more — Download full CV (PDF)
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact (from Amy's Figma "Footer" design) -->
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <h2 id="contact-title" class="contact-title">Have a project or a role <br class="contact-break" />you think I’d be a good fit for?</h2>
+      <hr class="contact-divider" />
+      <p class="contact-text">I’d love to hear about it. The quickest way to reach me is by email.</p>
+      <a href={`mailto:${site.email}`} class="contact-email">{site.email}</a>
+    </div>
+  </section>
+</BaseLayout>

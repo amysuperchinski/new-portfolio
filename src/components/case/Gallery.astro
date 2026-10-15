@@ -1,0 +1,13 @@
+---
+// A row of images, e.g. several mobile screens side by side.
+import '../../styles/case-study.css';
+interface Props { images: { src: string; alt: string }[]; columns?: number; caption?: string; bg?: string; width?: number; height?: number }
+const { images, columns = images.length, caption, bg, width = 650, height = 1299 } = Astro.props;
+---
+
+<figure class="cs-gallery" style={`--cols: ${columns};${bg ? ` --media-bg: ${bg}` : ''}`}>
+  <div class="cs-gallery-grid">
+    {images.map((img) => <img src={img.src} alt={img.alt} width={width} height={height} loading="lazy" decoding="async" />)}
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

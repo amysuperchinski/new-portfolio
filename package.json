@@ -1,0 +1,20 @@
+{
+  "name": "amy-superchinski-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "images": "node scripts/fetch-images.mjs",
+    "private-link": "node scripts/private-link.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "@fontsource-variable/dm-sans": "^5.0.0",
+    "@fontsource/dm-serif-display": "^5.0.0",
+    "astro": "^5.0.0"
+  }
+}

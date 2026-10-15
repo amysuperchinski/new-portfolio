@@ -1,0 +1,30 @@
+---
+// Vertical "scroll" label with a dot that travels down a line as the page scrolls.
+// Recreates the indicator from the original site. Clicking it returns to the top.
+import '../styles/scroll-indicator.css';
+---
+
+<a href="#top" class="scroll-indicator" aria-label="Back to top">
+  <span class="scroll-indicator-text" aria-hidden="true">scroll</span>
+  <span class="scroll-indicator-line" aria-hidden="true">
+    <span class="scroll-indicator-dot"></span>
+  </span>
+</a>
+
+<script>
+  const indicator = document.querySelector<HTMLElement>('.scroll-indicator');
+  if (indicator) {
+    let ticking = false;
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+      indicator.style.setProperty('--scroll-progress', String(progress));
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+</script>

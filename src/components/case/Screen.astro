@@ -1,0 +1,15 @@
+---
+// A tall full-page screenshot shown inside a browser-style frame.
+// The frame has a fixed height and the page scrolls inside it, so long screenshots don't take over the case study.
+import '../../styles/case-study.css';
+interface Props { src: string; alt: string; caption?: string; height?: string; width?: number; imgHeight?: number }
+const { src, alt, caption, height = '38rem', width = 1440, imgHeight = 3000 } = Astro.props;
+---
+
+<figure class="cs-screen">
+  <div class="cs-screen-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="cs-screen-view" style={`--screen-h: ${height}`} tabindex="0" role="region" aria-label={`${alt} (scrollable)`}>
+    <img src={src} alt={alt} width={width} height={imgHeight} loading="lazy" decoding="async" />
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

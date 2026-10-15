@@ -1,0 +1,6 @@
+/* Footer — from Amy's Figma "Footer" design */
+.site-footer { border-top: 1px solid #d9d9d9; padding-block: 21px var(--space-6); font-size: 1rem; color: #5e5e5e; }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3) var(--space-5); align-items: center; }
+.footer-links { list-style: none; padding: 0; display: flex; gap: 22px; }
+.footer-links a { color: #5e5e5e; text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
